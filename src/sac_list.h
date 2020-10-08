@@ -36,7 +36,8 @@
  * List
  *
  * A List that is stored in a fixed sized array. It works very much like a list
- * but is not resizeable and doesn't make use of dynamic memory internally.
+ * but is not resizeable and doesn't make use of dynamic memory allocation
+ * internally.
  */
 
 /* TODO : Remove all allocations */
@@ -497,6 +498,9 @@
     struct SNAME CMC_(PFX, _copy_of)(struct SNAME * _list_) \
     { \
         struct SNAME result = CMC_(PFX, _new_custom)(_list_->f_val, NULL); \
+\
+        if (result.flag == CMC_FLAG_ERROR)\
+            return result;\
 \
         CMC_CALLBACKS_ASSIGN(&result, _list_->callbacks); \
 \
