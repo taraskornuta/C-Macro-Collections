@@ -74,13 +74,16 @@
 
 /* Lowest level API */
 #define CMC_SAC_LIST_CORE_STRUCT(PARAMS) \
-    CMC_SAC_LIST_CORE_STRUCT_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_LIST_CORE_STRUCT_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                              CMC_PARAM_V(PARAMS))
 
 #define CMC_SAC_LIST_CORE_HEADER(PARAMS) \
-    CMC_SAC_LIST_CORE_HEADER_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_LIST_CORE_HEADER_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                              CMC_PARAM_V(PARAMS))
 
 #define CMC_SAC_LIST_CORE_SOURCE(PARAMS) \
-    CMC_SAC_LIST_CORE_SOURCE_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_LIST_CORE_SOURCE_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                              CMC_PARAM_V(PARAMS))
 
 /* -------------------------------------------------------------------------
  * Struct
@@ -139,8 +142,7 @@
     struct SNAME CMC_(PFX, _new_custom)(struct CMC_DEF_FVAL(SNAME) * f_val, struct CMC_CALLBACKS_NAME * callbacks); \
     void CMC_(PFX, _free)(struct SNAME * _list_); \
     /* Customization of Allocation and Callbacks */ \
-    void CMC_(PFX, _customize)(struct SNAME * _list_, \
-                               struct CMC_CALLBACKS_NAME * callbacks); \
+    void CMC_(PFX, _customize)(struct SNAME * _list_, struct CMC_CALLBACKS_NAME * callbacks); \
     /* Collection Input and Output */ \
     bool CMC_(PFX, _push_front)(struct SNAME * _list_, V value); \
     bool CMC_(PFX, _push_at)(struct SNAME * _list_, V value, size_t index); \
@@ -184,7 +186,7 @@
         CMC_CALLBACKS_MAYBE_UNUSED(callbacks); \
 \
         if (!f_val) \
-            return (struct SNAME) { .flag = CMC_FLAG_ERROR, 0 }; \
+            return (struct SNAME){ .flag = CMC_FLAG_ERROR, 0 }; \
 \
         struct SNAME _list_ = { 0 }; \
 \
@@ -205,8 +207,7 @@
         memset(_list_, 0, sizeof(struct SNAME)); \
     } \
 \
-    void CMC_(PFX, _customize)(struct SNAME * _list_, \
-                               struct CMC_CALLBACKS_NAME * callbacks) \
+    void CMC_(PFX, _customize)(struct SNAME * _list_, struct CMC_CALLBACKS_NAME * callbacks) \
     { \
         CMC_CALLBACKS_MAYBE_UNUSED(callbacks); \
 \
@@ -218,10 +219,10 @@
     bool CMC_(PFX, _push_front)(struct SNAME * _list_, V value) \
     { \
         if (CMC_(PFX, _full)(_list_)) \
-        {\
-            _list_->flag = CMC_FLAG_FULL;\
+        { \
+            _list_->flag = CMC_FLAG_FULL; \
             return false; \
-        }\
+        } \
 \
         if (!CMC_(PFX, _empty)(_list_)) \
         { \
@@ -247,10 +248,10 @@
         } \
 \
         if (CMC_(PFX, _full)(_list_)) \
-        {\
-            _list_->flag = CMC_FLAG_FULL;\
+        { \
+            _list_->flag = CMC_FLAG_FULL; \
             return false; \
-        }\
+        } \
 \
         memmove(_list_->buffer + index + 1, _list_->buffer + index, (_list_->count - index) * sizeof(V)); \
 \
@@ -266,10 +267,10 @@
     bool CMC_(PFX, _push_back)(struct SNAME * _list_, V value) \
     { \
         if (CMC_(PFX, _full)(_list_)) \
-        {\
-            _list_->flag = CMC_FLAG_FULL;\
+        { \
+            _list_->flag = CMC_FLAG_FULL; \
             return false; \
-        }\
+        } \
 \
         _list_->buffer[_list_->count++] = value; \
         _list_->flag = CMC_FLAG_OK; \
@@ -324,10 +325,10 @@
     bool CMC_(PFX, _pop_back)(struct SNAME * _list_) \
     { \
         if (CMC_(PFX, _empty)(_list_)) \
-        {\
+        { \
             _list_->flag = CMC_FLAG_EMPTY; \
             return false; \
-        }\
+        } \
 \
         _list_->buffer[--_list_->count] = (V){ 0 }; \
         _list_->flag = CMC_FLAG_OK; \
@@ -497,8 +498,8 @@
     { \
         struct SNAME result = CMC_(PFX, _new_custom)(_list_->f_val, NULL); \
 \
-        if (result.flag == CMC_FLAG_ERROR)\
-            return result;\
+        if (result.flag == CMC_FLAG_ERROR) \
+            return result; \
 \
         CMC_CALLBACKS_ASSIGN(&result, _list_->callbacks); \
 \

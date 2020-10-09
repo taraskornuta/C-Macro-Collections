@@ -74,13 +74,16 @@
 
 /* Lowest level API */
 #define CMC_SAC_DEQUE_CORE_STRUCT(PARAMS) \
-    CMC_SAC_DEQUE_CORE_STRUCT_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_DEQUE_CORE_STRUCT_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                               CMC_PARAM_V(PARAMS))
 
 #define CMC_SAC_DEQUE_CORE_HEADER(PARAMS) \
-    CMC_SAC_DEQUE_CORE_HEADER_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_DEQUE_CORE_HEADER_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                               CMC_PARAM_V(PARAMS))
 
 #define CMC_SAC_DEQUE_CORE_SOURCE(PARAMS) \
-    CMC_SAC_DEQUE_CORE_SOURCE_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), CMC_PARAM_V(PARAMS))
+    CMC_SAC_DEQUE_CORE_SOURCE_(CMC_PARAM_PFX(PARAMS), CMC_PARAM_SIZE(PARAMS), CMC_PARAM_SNAME(PARAMS), \
+                               CMC_PARAM_V(PARAMS))
 
 /* -------------------------------------------------------------------------
  * Struct
@@ -144,8 +147,7 @@
     void CMC_(PFX, _clear)(struct SNAME * _deque_); \
     void CMC_(PFX, _free)(struct SNAME * _deque_); \
     /* Customization of Allocation and Callbacks */ \
-    void CMC_(PFX, _customize)(struct SNAME * _deque_, \
-                               struct CMC_CALLBACKS_NAME * callbacks); \
+    void CMC_(PFX, _customize)(struct SNAME * _deque_, struct CMC_CALLBACKS_NAME * callbacks); \
     /* Collection Input and Output */ \
     bool CMC_(PFX, _push_front)(struct SNAME * _deque_, V value); \
     bool CMC_(PFX, _push_back)(struct SNAME * _deque_, V value); \
@@ -183,7 +185,7 @@
         CMC_CALLBACKS_MAYBE_UNUSED(callbacks); \
 \
         if (!f_val) \
-            return (struct SNAME) { .flag = CMC_FLAG_ERROR, 0 }; \
+            return (struct SNAME){ .flag = CMC_FLAG_ERROR, 0 }; \
 \
         struct SNAME _deque_ = { 0 }; \
 \
@@ -208,8 +210,7 @@
         memset(_deque_, 0, sizeof(struct SNAME)); \
     } \
 \
-    void CMC_(PFX, _customize)(struct SNAME * _deque_, \
-                               struct CMC_CALLBACKS_NAME * callbacks) \
+    void CMC_(PFX, _customize)(struct SNAME * _deque_, struct CMC_CALLBACKS_NAME * callbacks) \
     { \
         CMC_CALLBACKS_MAYBE_UNUSED(callbacks); \
 \
@@ -241,10 +242,10 @@
     bool CMC_(PFX, _push_back)(struct SNAME * _deque_, V value) \
     { \
         if (CMC_(PFX, _full)(_deque_)) \
-        {\
+        { \
             _deque_->flag = CMC_FLAG_FULL; \
             return false; \
-        }\
+        } \
 \
         _deque_->buffer[_deque_->back] = value; \
 \
@@ -379,8 +380,8 @@
     { \
         struct SNAME result = CMC_(PFX, _new_custom)(_deque_->f_val, NULL); \
 \
-        if (result.flag == CMC_FLAG_ERROR)\
-            return result;\
+        if (result.flag == CMC_FLAG_ERROR) \
+            return result; \
 \
         CMC_CALLBACKS_ASSIGN(&result, _deque_->callbacks); \
 \
