@@ -36,8 +36,8 @@
  * Deque
  *
  * A Deque that is stored in a fixed sized array. It works very much like a
- * deque but is not resizeable and doesn't make use of dynamic memory
- * internally.
+ * deque but it is not resizeable and doesn't make use of dynamic memory
+ * allocation internally.
  */
 
 #ifndef CMC_SAC_DEQUE_H

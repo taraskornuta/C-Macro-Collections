@@ -36,11 +36,9 @@
  * List
  *
  * A List that is stored in a fixed sized array. It works very much like a list
- * but is not resizeable and doesn't make use of dynamic memory allocation
+ * but it is not resizeable and doesn't make use of dynamic memory allocation
  * internally.
  */
-
-/* TODO : Remove all allocations */
 
 #ifndef CMC_SAC_LIST_H
 #define CMC_SAC_LIST_H
