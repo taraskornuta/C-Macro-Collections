@@ -96,10 +96,12 @@
 #include "ext_cmc_treeset.h"      /* Added in 08/06/2020 */
 #include "ext_sac_deque.h"        /* Added in 08/10/2020 */
 #include "ext_sac_list.h"         /* Added in 06/10/2020 */
+#include "ext_sac_queue.h"        /* Added in 20/10/2020 */
 #include "ext_sac_stack.h"        /* Added in 09/10/2020 */
 
 #include "sac_deque.h"            /* Added in 08/10/2020 */
 #include "sac_list.h"             /* Added in 06/10/2020 */
+#include "sac_queue.h"            /* Added in 20/10/2020 */
 #include "sac_stack.h"            /* Added in 09/10/2020 */
 
 #include "utl_assert.h"           /* Added in 27/06/2019 */
