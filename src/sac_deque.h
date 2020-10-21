@@ -93,7 +93,7 @@
     /* Deque Structure */ \
     struct SNAME \
     { \
-        /* Dynamic circular array of elements */ \
+        /* Circular array of elements */ \
         V buffer[SIZE]; \
 \
         /* Current amount of elements */ \

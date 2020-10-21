@@ -93,7 +93,7 @@
     /* Stack Structure */ \
     struct SNAME \
     { \
-        /* Dynamic array of elements */ \
+        /* Array of elements */ \
         V buffer[SIZE]; \
 \
         /* Current amount of elements */ \

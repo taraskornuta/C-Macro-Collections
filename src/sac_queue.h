@@ -90,11 +90,8 @@
     /* Queue Structure */ \
     struct SNAME \
     { \
-        /* Dynamic circular array of elements */ \
+        /* Circular array of elements */ \
         V buffer[SIZE]; \
-\
-        /* Current circular array capacity */ \
-        size_t capacity; \
 \
         /* Current amount of elements */ \
         size_t count; \
