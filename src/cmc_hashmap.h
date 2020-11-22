@@ -822,7 +822,7 @@
 \
         while (target->state == CMC_ES_FILLED || target->state == CMC_ES_DELETED) \
         { \
-            if (_map_->f_key->cmp(target->key, key) == 0) \
+            if (target->state != CMC_ES_DELETED && _map_->f_key->cmp(target->key, key) == 0) \
                 return target; \
 \
             pos++; \

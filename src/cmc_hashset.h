@@ -667,7 +667,7 @@
 \
         while (target->state == CMC_ES_FILLED || target->state == CMC_ES_DELETED) \
         { \
-            if (_set_->f_val->cmp(target->value, value) == 0) \
+            if (target->state != CMC_ES_DELETED && _set_->f_val->cmp(target->value, value) == 0) \
                 return target; \
 \
             pos++; \
